@@ -1,15 +1,51 @@
 # FEMS Vehicle Charging Session Aggregator Challenge
 
-A take-home assignment for evaluating IT engineering candidates at eMotion Fleet. Candidates build a Vehicle Charging Session Aggregator that consolidates data from multiple sources—EMS API, FMS API, and electric power provider API—into a unified dashboard.
-
 ## Purpose
 
-This assignment evaluates candidates' ability to:
-- Design clean API architecture and application structure
-- Handle real-world data integration challenges including heterogeneous data models
-- Make well-reasoned technical decisions based on experience and best practices
-- Demonstrate proficiency in the required tech stack
+This repository contains the take-home assignment for engineering candidates at eMotion Fleet. The challenge evaluates candidates' ability to design and build a data aggregation solution that consolidates information from multiple heterogeneous APIs — a common challenge in the Fleet and Energy Management System (FEMS) domain.
 
-## Domain Context
+## What This Assignment Evaluates
 
-eMotion Fleet builds Fleet and Energy Management Systems (FEMS) that integrate EV charging, telematics, and depot electrification for logistics and transit operators across Japan and Asia.
+- **Problem-solving**: Handling real-world data inconsistencies across multiple sources
+- **Design decisions**: API architecture, data modeling, and component structure
+- **Core concept understanding**: RESTful patterns, relational thinking, frontend architecture
+- **Communication**: Documenting decisions and rationale clearly
+- **Pragmatic engineering**: Delivering working software within time constraints
+
+## Repository Structure
+
+```
+emotion-fleet-challenge/
+├── README.md                      # This file
+├── docs/
+│   ├── ASSIGNMENT.md              # Main assignment instructions
+│   ├── EVALUATION_CRITERIA.md     # How submissions are evaluated
+│   └── API_DOCUMENTATION.md       # Mock API specifications
+└── mock-apis/
+    ├── ems-api/
+    │   └── data.json              # Energy Management System data
+    ├── fms-api/
+    │   └── data.json              # Fleet Management System data
+    └── power-provider-api/
+        └── data.json              # Electric power provider data
+```
+
+## Getting Started
+
+Candidates should begin by reading:
+
+1. [`docs/ASSIGNMENT.md`](docs/ASSIGNMENT.md) — Assignment overview and requirements
+2. [`docs/API_DOCUMENTATION.md`](docs/API_DOCUMENTATION.md) — Mock API specifications
+3. [`docs/EVALUATION_CRITERIA.md`](docs/EVALUATION_CRITERIA.md) — Evaluation rubric
+
+## Time Expectation
+
+This assignment is designed to be completed in **4-8 hours**. Candidates are encouraged to use AI tools and should be prepared to discuss their process during the technical interview.
+
+## About eMotion Fleet
+
+eMotion Fleet is a Tokyo-based startup building the infrastructure for commercial EV adoption across Japan and Asia. Our Fleet and Energy Management System (FEMS) integrates EV charging, telematics, and depot electrification to help logistics and transit operators decarbonize, cut operating costs, and maximize fleet uptime.
+
+---
+
+*For internal use: This assignment is maintained by the eMotion Fleet engineering team.*
