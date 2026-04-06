@@ -79,7 +79,7 @@ Your submission must include a **README** that documents:
 - Your deployment and CI/CD approach
 - Your monitoring, observability, and failsafe strategy
 - Your performance and scaling considerations
-- Your DX improvements or suggestions that would increase the efficacy of the wider team
+- Your developer experience (DX) improvements or suggestions that would increase the efficacy of the wider team
 - Anything you would do differently with more time
 
 If you use AI tools or agents, include an `AI_USAGE.md` file or an equivalent README section that covers:
