@@ -13,7 +13,13 @@ The assignment tests your ability to:
 
 ## Time Expectation
 
-**4-8 hours** - This assignment is scoped for completion within a single working day.
+Please **timebox yourself to roughly 4-8 hours**. We care more about prioritization, judgment, and clear trade-offs than about polishing every edge case.
+
+For many candidates, the full written scope here can exceed that timebox if every requirement is implemented deeply. A strong submission is therefore expected to make deliberate scope decisions:
+
+- **Backend candidates** should prioritize clean aggregation logic, clear API contracts, and backend test coverage, while keeping the frontend intentionally thin if needed.
+- **Frontend candidates** should prioritize interface clarity, usable data presentation, and frontend architecture, while keeping the API layer intentionally thin if needed.
+- If time runs short, prefer documenting what you would do next over rushing incomplete or low-confidence features.
 
 You are encouraged to use AI tools (Copilot, Cursor, ChatGPT, Claude, etc.) to assist you. If you do, be prepared to document not only the tools you used, but also how you validated their output, how you structured your workflow, and how you used AI or agents for QA, testing, review, or iteration.
 

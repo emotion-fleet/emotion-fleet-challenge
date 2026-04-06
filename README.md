@@ -40,7 +40,33 @@ Candidates should begin by reading:
 
 ## Time Expectation
 
-This assignment is designed to be completed in **4-8 hours**. Candidates are encouraged to use AI tools and should be prepared to discuss their process during the technical interview.
+Candidates should still be asked to **timebox themselves to roughly 4-8 hours**, but the assignment as currently written will often take longer than that if a senior candidate fully implements both user journeys, adds role-appropriate tests, and writes the requested strategy documentation.
+
+### Internal Calibration
+
+| Track | With AI assistance | Without AI assistance | Longest parts |
+|-------|--------------------|-----------------------|---------------|
+| **Backend-heavy candidate** | ~6-10 hours | ~8-14 hours | Data normalization and identifier mapping, endpoint design, backend tests, plus a minimal UI or demo surface |
+| **Frontend-heavy candidate** | ~8-12 hours | ~10-16 hours | App scaffolding, dashboard and history UI, API integration, state/filtering, plus the required strategy write-up |
+
+In practice, the work that stretches the timebox is the combination of:
+
+- Normalizing three data sources with different timestamps, units, identifiers, and status vocabularies
+- Building both the primary track deliverable and a non-trivial opposite-stack surface area
+- Writing the senior-level README and AI-usage documentation to a high standard
+
+### If We Want This To Stay A True 4-8 Hour Exercise
+
+The smallest cuts that still preserve evaluation quality are:
+
+1. **Keep one core journey fully implemented and let the second be thinner.**
+   For frontend candidates, prioritize a strong facility dashboard and allow a simpler history view. For backend candidates, prioritize strong aggregation contracts and allow a very thin frontend.
+2. **Make tariff details explicitly non-core.**
+   Current power consumption is useful, but tariff modeling adds little signal for the stated exercise.
+3. **Reduce the required written strategy depth.**
+   Keep testing, CI/CD, and monitoring as required topics, but make scaling and DX notes intentionally brief.
+4. **Prefer depth over breadth in evaluation.**
+   A well-prioritized submission with clear trade-offs is a better signal than a rushed attempt to implement every possible edge case.
 
 ## About eMotion Fleet
 

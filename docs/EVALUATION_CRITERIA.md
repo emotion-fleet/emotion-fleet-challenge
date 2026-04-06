@@ -6,6 +6,8 @@ This document outlines how submissions are evaluated. Understanding these criter
 
 We evaluate candidates on their **ability to think through problems, make sound technical decisions, and suggest improvements that would increase the efficacy of the whole team**, not just their ability to produce working code. A submission with fewer features but clear reasoning, strong prioritization, and senior-level judgment is valued over a feature-complete submission with unclear structure or shallow trade-offs.
 
+We do **not** expect every candidate to fully maximize every part of the brief inside a strict 4-8 hour timebox. Intentional de-scoping is a positive signal when the candidate preserves the highest-value path, explains what they left out, and shows sound judgment about what mattered most.
+
 ## Core Evaluation Areas
 
 ### 1. Product, API, and Interface Design (25%)
