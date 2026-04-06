@@ -130,7 +130,6 @@ To be explicit about what does not need to be fully built within the timebox:
 | Not Fully Implemented | What We Still Evaluate |
 |-----------------------|------------------------|
 | **Production deployment pipeline** | We do evaluate deployment and CI/CD strategy |
-| **Exhaustive automated test suite** | We do evaluate testing priorities, regression coverage, and risk awareness |
 | **Brand or marketing-level visual design** | For frontend-heavy candidates, we still evaluate interface clarity, usability, and execution quality |
 | **Load testing or scale benchmarking** | We do evaluate performance assumptions, bottleneck awareness, and mitigation ideas |
 | **Feature completeness beyond requirements** | We care more about disciplined prioritization than feature sprawl |
@@ -140,7 +139,6 @@ To be explicit about what does not need to be fully built within the timebox:
 Optional bonus items can strengthen a submission, but **only if core requirements are solid**. A submission with excellent core execution and no bonuses will score higher than one with rushed core execution and attempted bonuses.
 
 Bonus items that positively impact evaluation:
-- Role-appropriate automated tests or CI checks that cover meaningful risk beyond the happy path
 - Monitoring, observability, alerting, or failure-recovery measures
 - Data freshness, synchronization, or refresh mechanisms where they materially improve the solution
 - Additional useful features that demonstrate product, operational, or system thinking

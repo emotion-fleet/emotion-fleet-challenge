@@ -130,14 +130,14 @@ See [`API_DOCUMENTATION.md`](API_DOCUMENTATION.md) for detailed specifications.
 - **API and interface design** - Are backend contracts and frontend flows clear, useful, and appropriately scoped?
 - **Data handling** - How do you normalize inconsistent data?
 - **Code organization** - Is your code readable, maintainable, and easy to extend?
-- **Senior engineering judgment** - Do you show good thinking about testing, CI/CD, deployment, monitoring, resilience, and performance?
+- **Quality ownership** - Do you write role-appropriate tests that cover meaningful risk and show clear regression awareness
+- **Senior engineering judgment** - Do you show good thinking about CI/CD, deployment, monitoring, resilience, and performance?
 - **DX and team leverage** - Do you suggest improvements that would make the next engineer faster and increase the efficacy of the wider team?
 - **Communication** - Can you explain decisions, trade-offs, and next steps clearly?
 
 ### What We Don't Expect You To Fully Implement Within The Timebox
 
 - Complete production infrastructure or deployment automation, though your deployment and CI/CD strategy is evaluated
-- Exhaustive automated test implementation, though your testing priorities and regression strategy are evaluated
 - Brand-level visual design or marketing polish, though frontend-heavy candidates are evaluated on interface clarity, usability, and frontend execution quality
 - Full scale hardening or benchmarking, though your performance assumptions and scaling strategy are evaluated
 - Extra features beyond the core requirements unless they clearly strengthen the submission
@@ -146,7 +146,6 @@ See [`API_DOCUMENTATION.md`](API_DOCUMENTATION.md) for detailed specifications.
 
 If you complete the core requirements with time to spare, consider:
 
-- [ ] Role-appropriate automated tests or CI checks that cover meaningful risk beyond the happy path
 - [ ] Monitoring, observability, or failure-handling mechanisms that make the system easier to trust
 - [ ] Data freshness, synchronization, or refresh strategy where it meaningfully improves the solution
 - [ ] Additional useful features that demonstrate product, operational, or system thinking
@@ -155,10 +154,7 @@ These are genuinely optional - a well-executed core submission without bonuses i
 
 ## Submission
 
-Submit by creating a **private repository** containing your solution. Grant access based on the role you completed:
-
-- **Backend-heavy track** - `david.knapik@emotion-fleet.com` and `ivan.ordonez@emotion-fleet.com`
-- **Frontend-heavy track** - `david.knapik@emotion-fleet.com` and `ihsan.engku@emotion-fleet.com`
+Submit by creating a repository containing your solution and follow the submission channel instructions provided with this assignment.
 
 Ensure your submission includes:
 
@@ -169,7 +165,7 @@ Ensure your submission includes:
 
 ## Questions?
 
-If anything is unclear, please reach out to `david.knapik@emotion-fleet.com`. Asking good questions is a positive signal.
+If anything is unclear, please contact us.
 
 ---
 
