@@ -127,7 +127,7 @@ See [`API_DOCUMENTATION.md`](API_DOCUMENTATION.md) for detailed specifications.
 
 ### We DO evaluate:
 
-- **API and interface design** - Are backend contracts and frontend flows clear, useful, and appropriately scoped for your track?
+- **API and interface design** - Are backend contracts and frontend flows clear, useful, and appropriately scoped?
 - **Data handling** - How do you normalize inconsistent data?
 - **Code organization** - Is your code readable, maintainable, and easy to extend?
 - **Senior engineering judgment** - Do you show good thinking about testing, CI/CD, deployment, monitoring, resilience, and performance?
