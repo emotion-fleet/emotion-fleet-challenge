@@ -130,6 +130,16 @@ Bonus items that positively impact evaluation:
 - Observability, failure-handling, or operational safeguards
 - Additional useful features that demonstrate product or system thinking
 
+## Additional Senior Signals
+
+These topics are **not required** for a strong take-home submission, but they are still useful parts of the overall scorecard when a candidate surfaces them in the submission or interview:
+
+- Monitoring, observability, and operational ownership
+- Performance and scaling trade-offs
+- Developer experience (DX) and maintainability improvements
+- Suggestions that would improve the effectiveness of the wider team
+- How AI tools or agents were orchestrated, validated, and used for QA
+
 ## AI Tool Usage
 
 Using AI tools is allowed. We may ask about how you used them, how you validated the output, and how AI influenced your testing, QA, or review process.
@@ -139,12 +149,7 @@ If you want to share that proactively, an `AI_USAGE.md` note is welcome but opti
 ## Interview Follow-up
 
 When time allows, we may also explore additional senior signals in the interview, such as:
-
-- Monitoring, observability, and operational ownership
-- Performance and scaling trade-offs
-- Developer experience (DX) and maintainability improvements
-- Suggestions that would improve the effectiveness of the wider team
-- How AI tools or agents were orchestrated, validated, and used for QA
+- topics from the additional senior signals section above
 
 ---
 
