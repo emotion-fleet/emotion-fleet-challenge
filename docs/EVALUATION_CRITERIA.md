@@ -8,7 +8,7 @@ We evaluate candidates on their **ability to think through problems, make sound 
 
 ## Core Evaluation Areas
 
-### 1. Product, API, and Interface Design (25%)
+### 1. Product, API, and Interface Design (30%)
 
 | Aspect | What We Look For |
 |--------|------------------|
@@ -22,11 +22,11 @@ We evaluate candidates on their **ability to think through problems, make sound 
 - Is the API or UI structure easy to reason about and extend?
 - Did the candidate make good trade-offs for the timebox and their track?
 
-### 2. Data Normalization and Domain Correctness (20%)
+### 2. Data Normalization and Domain Correctness (25%)
 
 | Aspect | What We Look For |
 |--------|------------------|
-| **Consistency** | Unified formats for timestamps, units, and identifiers across all data sources |
+| **Consistency** | Unified formats for timestamps, units, and identifiers across the required data sources |
 | **Correctness** | Accurate timezone conversions, unit transformations, and ID mappings |
 | **Edge cases** | Handling of missing data, null values, ongoing sessions, and ambiguous records |
 | **Documentation** | Clear explanation of normalization strategy and assumptions |
@@ -36,7 +36,7 @@ We evaluate candidates on their **ability to think through problems, make sound 
 - Is the normalization logic centralized, explainable, and testable?
 - Are edge cases handled gracefully rather than ignored?
 
-### 3. Code Organization and Maintainability (20%)
+### 3. Code Organization and Maintainability (25%)
 
 | Aspect | What We Look For |
 |--------|------------------|
@@ -50,33 +50,19 @@ We evaluate candidates on their **ability to think through problems, make sound 
 - Is there unnecessary complexity or obvious code smell?
 - Does the implementation feel intentional rather than scaffolded and unreviewed?
 
-### 4. Senior Engineering Strategy (20%)
+### 4. Quality Ownership, Delivery, and Communication (20%)
 
 | Aspect | What We Look For |
 |--------|------------------|
 | **Testing and regression strategy** | Good prioritization of critical paths, failure modes, and regression risks |
-| **Deployment and CI/CD approach** | Practical thinking about environments, pipelines, rollout, and verification |
-| **Monitoring and failsafes** | Thoughtful observability, alerting, and graceful degradation ideas |
-| **Performance and scale reasoning** | Awareness of likely bottlenecks, trade-offs, and future scaling concerns |
+| **Delivery strategy** | Practical thinking about CI/CD, deployment, verification, and release confidence |
+| **Documentation quality** | Concise, useful explanations of decisions and trade-offs |
+| **Communication** | Clear asynchronous communication and good prioritization under time pressure |
 
 **Questions we ask ourselves:**
-- Does the candidate think like someone who has to own this in production?
-- Did they distinguish what must be implemented now from what should be planned next?
-- Would their strategy reduce regressions and operational surprises for the team?
-
-### 5. DX, Communication, and Team Efficacy (15%)
-
-| Aspect | What We Look For |
-|--------|------------------|
-| **Developer experience** | Clear local setup, useful scripts, and maintainable workflows |
-| **Documentation quality** | Concise, practical explanations of decisions and trade-offs |
-| **Team leverage** | Suggestions that would improve handoff quality, onboarding, or delivery speed for the broader team |
-| **AI collaboration quality** | Thoughtful use of AI tools or agents, with evidence of validation and ownership |
-
-**Questions we ask ourselves:**
-- Would this submission make the next engineer faster rather than slower?
-- Does the candidate communicate clearly and asynchronously?
-- Do they suggest improvements that would increase the efficacy of the wider team?
+- Did the candidate show clear regression awareness?
+- Is the delivery strategy pragmatic for the scope of the exercise?
+- Can we understand what they built, what they skipped, and why?
 
 ## Role-Specific Emphasis
 
@@ -105,15 +91,15 @@ We place additional emphasis on:
 - Core API and UI flows work correctly
 - Data inconsistencies are handled thoughtfully and documented clearly
 - Code is well-organized, readable, and maintainable
-- Senior-level strategy is present for testing, deployment, monitoring, performance, and DX
-- AI usage is documented clearly and validated critically if AI was used
+- Testing and delivery strategy is clear and appropriately prioritized
+- Optional bonus items are not required for the submission to be considered strong
 
 ### Acceptable Submission
 
 - Core functionality works with minor issues
 - Some normalization or architectural gaps remain
 - Code is functional but could be better organized
-- Strategy is present but shallow, incomplete, or not well-prioritized
+- Testing or delivery strategy is present but shallow or incomplete
 
 ### Weak Submission
 
@@ -121,7 +107,6 @@ We place additional emphasis on:
 - Data inconsistencies are not meaningfully addressed
 - Documentation is missing, minimal, or vague
 - Code is difficult to follow or feels largely unexamined
-- Senior engineering strategy is absent or superficial
 
 ## What We Don't Expect To Be Fully Implemented
 
@@ -129,47 +114,43 @@ To be explicit about what does not need to be fully built within the timebox:
 
 | Not Fully Implemented | What We Still Evaluate |
 |-----------------------|------------------------|
-| **Production deployment pipeline** | We do evaluate deployment and CI/CD strategy |
+| **Production deployment pipeline** | We do evaluate delivery strategy and release thinking |
+| **Exhaustive automated test suite** | We do evaluate testing priorities, regression coverage, and risk awareness |
 | **Brand or marketing-level visual design** | For frontend-heavy candidates, we still evaluate interface clarity, usability, and execution quality |
-| **Load testing or scale benchmarking** | We do evaluate performance assumptions, bottleneck awareness, and mitigation ideas |
-| **Feature completeness beyond requirements** | We care more about disciplined prioritization than feature sprawl |
+| **Load testing or scale benchmarking** | We may discuss performance reasoning in the interview |
+| **Optional features such as utility integration or date filtering** | We care more about disciplined prioritization than feature sprawl |
 
 ## Bonus Consideration
 
 Optional bonus items can strengthen a submission, but **only if core requirements are solid**. A submission with excellent core execution and no bonuses will score higher than one with rushed core execution and attempted bonuses.
 
 Bonus items that positively impact evaluation:
-- Monitoring, observability, alerting, or failure-recovery measures
-- Data freshness, synchronization, or refresh mechanisms where they materially improve the solution
-- Additional useful features that demonstrate product, operational, or system thinking
+- Integrating the optional Power Provider API in a thoughtful way
+- Adding optional date filtering where it meaningfully improves the experience
+- Observability, failure-handling, or operational safeguards
+- Additional useful features that demonstrate product or system thinking
+
+## Additional Senior Signals
+
+These topics are **not required** for a strong take-home submission, but they are still useful parts of the overall scorecard when a candidate surfaces them in the submission or interview:
+
+- Monitoring, observability, and operational ownership
+- Performance and scaling trade-offs
+- Developer experience (DX) and maintainability improvements
+- Suggestions that would improve the effectiveness of the wider team
+- How AI tools or agents were orchestrated, validated, and used for QA
 
 ## AI Tool Usage
 
-Using AI tools and agentic workflows is **encouraged and expected**. We evaluate not only whether you used AI, but how deliberately and critically you used it.
+Using AI tools is allowed. We may ask about how you used them, how you validated the output, and how AI influenced your testing, QA, or review process.
 
-Strong AI usage documentation explains:
-- What tools, models, agents, or workflows you used
-- How tasks were decomposed, including any multi-agent workflow
-- `AI_USAGE.md`, `AGENTS.md`, `SKILLS.md`, prompt logs, or equivalent artifacts if used
-- How AI or agents were used for QA, regression testing, code review, or documentation
-- What outputs you corrected, rejected, or independently verified
-- How you evaluated agent quality, reliability, and trustworthiness
-
-Skilled use of AI is a positive signal when paired with critical validation, clear ownership, and good engineering judgment.
+If you want to share that proactively, an `AI_USAGE.md` note is welcome but optional.
 
 ## Interview Follow-up
 
-During the technical interview, expect questions such as:
-
-- Walk us through your architecture and data normalization approach
-- Why did you choose to implement some things and document others?
-- What regression risks concern you most, and how would you catch them in CI/CD?
-- How would you deploy, monitor, and operate this in production?
-- What DX changes would most improve the next engineer's experience?
-- What suggestions would you make to increase the effectiveness of the wider team?
-- If you used AI or agents, how did you orchestrate, evaluate, and validate their output?
-- How did you use AI or agents for QA or testing, and where did you decide not to trust them?
+When time allows, we may also explore additional senior signals in the interview, such as:
+- topics from the additional senior signals section above
 
 ---
 
-*We evaluate the whole picture - technical skills, product judgment, communication quality, AI collaboration, and the ability to improve team efficacy over time.*
+*We evaluate the whole picture - technical skills, product judgment, communication quality, and senior-level prioritization.*
