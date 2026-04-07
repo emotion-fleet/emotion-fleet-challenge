@@ -1,20 +1,26 @@
 # Mock API Documentation
 
-This document describes the three mock APIs that serve as data sources for the assignment. Each API has intentionally different conventions to simulate real-world integration challenges.
+This document describes the mock APIs that serve as data sources for the assignment.
+
+The **required core** of the exercise uses:
+- EMS API
+- FMS API
+
+An optional **Power Provider API** is also included if you want extra depth after completing the core requirements.
 
 ## Data Files Location
 
 ```
 mock-apis/
 ├── ems-api/
-│   └── data.json          # Energy Management System
+│   └── data.json          # Required: Energy Management System
 ├── fms-api/
-│   └── data.json          # Fleet Management System
+│   └── data.json          # Required: Fleet Management System
 └── power-provider-api/
-    └── data.json          # Electric Power Provider
+    └── data.json          # Optional bonus: Electric Power Provider
 ```
 
-Load these JSON files directly in your application — no need to run mock servers.
+Load these JSON files directly in your application - no need to run mock servers.
 
 ---
 
@@ -50,9 +56,14 @@ The EMS manages charging infrastructure at depot facilities.
         "longitude": "number"
       },
       "total_capacity_kw": "number",
+      "external_refs": {
+        "fms_facility_ref": "string",
+        "power_provider_code": "string"
+      },
       "chargers": [
         {
           "charger_id": "uuid",
+          "external_ref": "string",
           "model": "string",
           "max_power_kw": "number",
           "status": "AVAILABLE | IN_USE | OFFLINE | MAINTENANCE",
@@ -125,9 +136,9 @@ The FMS tracks vehicles and their charging sessions.
 
 ### Notes
 
-- `endTime` is `null` for sessions that are currently in progress
-- `chargerIdentifier` uses a different format than EMS charger IDs — you'll need to map these
-- `facilityRef` uses yet another identifier format for facilities
+- `chargerIdentifier` uses a different format than EMS charger IDs - you will need to map these
+- `facilityRef` uses a different identifier format for facilities
+- In this mock data, `status` is the source of truth for session state. Do not rely on `endTime == null` alone to mean "in progress"
 
 ### Vehicle Status Values
 
@@ -149,17 +160,17 @@ The FMS tracks vehicles and their charging sessions.
 
 ---
 
-## Power Provider API
+## Optional Bonus API: Power Provider
 
 **File:** `mock-apis/power-provider-api/data.json`
 
-The power provider supplies electricity consumption and tariff data.
+The power provider supplies electricity consumption and tariff data. This data set is **optional** and can be used if you want to extend the facility status view beyond charger-side load.
 
 ### Conventions
 
 | Aspect | Convention |
 |--------|------------|
-| **Timestamps** | Unix timestamp in seconds (e.g., `1711958400`) |
+| **Timestamps** | Unix timestamp in seconds |
 | **Power units** | Kilowatts (kW) |
 | **Energy units** | Kilowatt-hours (kWh) |
 | **Identifiers** | Numeric IDs and facility reference codes |
@@ -201,68 +212,68 @@ The power provider supplies electricity consumption and tariff data.
 }
 ```
 
-### Tariff Categories
-
-| Category | Typical Hours (JST) | Description |
-|----------|---------------------|-------------|
-| `peak` | 13:00-16:00 | Highest rates |
-| `standard` | 08:00-13:00, 16:00-22:00 | Normal rates |
-| `off_peak` | 22:00-08:00 | Lowest rates |
-
 ---
 
 ## Cross-Reference Mapping
 
-The three APIs use different identifiers for the same entities. Here's how they relate:
+### Required Core Mapping
 
-### Facility Identifiers
+The core assignment requires joining EMS and FMS records.
 
-| EMS API | FMS API | Power Provider |
-|---------|---------|----------------|
-| `facility_id` (UUID) | `facilityRef` (string) | `facilityCode` (string) |
+#### Facility Identifiers
 
-The mapping is provided in each data file. For example:
-- EMS: `"f47ac10b-58cc-4372-a567-0e02b2c3d479"`
-- FMS: `"FACILITY-TKY-ALPHA"`
-- Power: `"DEPOT-TKY-A"`
+| EMS API | FMS API |
+|---------|---------|
+| `facility_id` (UUID) | `facilityRef` (string) |
 
-### Charger Identifiers
+The EMS data includes an `external_refs.fms_facility_ref` field to help with this mapping.
+
+#### Charger Identifiers
 
 | EMS API | FMS API |
 |---------|---------|
 | `charger_id` (UUID) | `chargerIdentifier` (string) |
 
-Example mapping:
-- EMS: `"c1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c"`
-- FMS: `"CHG-TKY-01"`
+The EMS data includes an `external_ref` field on each charger to help with this mapping.
+
+### Optional Bonus Mapping
+
+If you use the Power Provider API, you will also need to map EMS facilities to utility `facilityCode` values via `external_refs.power_provider_code`.
 
 ---
 
 ## Data Challenges Summary
 
-Your solution needs to handle these inconsistencies:
+### Required Core Challenges
 
 | Challenge | Details |
 |-----------|---------|
-| **Timezone normalization** | Convert JST strings and Unix timestamps to a consistent format |
+| **Timezone normalization** | Convert UTC and JST timestamps to a consistent format |
 | **Unit conversion** | Handle kW/W and kWh/Wh differences |
-| **ID mapping** | Join data across different identifier formats |
-| **Null handling** | Handle missing `endTime`, `currentBatteryPercent`, etc. |
-| **Status normalization** | Unify different status naming conventions |
+| **ID mapping** | Join EMS and FMS data across different identifier formats |
+| **Null handling** | Handle missing `endTime`, `currentBatteryPercent`, and similar fields |
+| **Status normalization** | Interpret and present status values consistently |
 | **Case conventions** | Handle snake_case vs camelCase field names |
+
+### Optional Bonus Challenges
+
+| Challenge | Details |
+|-----------|---------|
+| **Unix timestamps** | Normalize Power Provider timestamps if you use that API |
+| **Third-system mapping** | Join utility `facilityCode` values to EMS facilities |
+| **Utility-side power data** | Distinguish charger-side load from utility-side consumption if you choose to surface both |
 
 ---
 
-## Example: Joining Data
+## Example: Core Join
 
-To display a facility's status with current power consumption, you would need to:
+To display a facility's status and charging history using the required APIs, you would typically:
 
-1. Load facility from EMS API (get `facility_id`)
-2. Find matching `facilityRef` in FMS API sessions
-3. Find matching `facilityCode` in Power Provider consumption records
-4. Normalize all timestamps to a common format
-5. Aggregate charger statuses from EMS
-6. Sum energy delivered from FMS sessions (converting Wh to kWh)
-7. Get current power reading from Power Provider
+1. Load facilities and chargers from EMS
+2. Map EMS facility and charger references to FMS `facilityRef` and `chargerIdentifier`
+3. Normalize UTC and JST timestamps to a common format
+4. Aggregate charger statuses from EMS
+5. Sum `current_power_kw` values from EMS chargers to derive current charging load
+6. Join FMS charging sessions and vehicles to build facility history
 
-This is the core challenge of the assignment.
+If you use the optional Power Provider API, you can extend this by joining facility codes and adding utility-side consumption data.
