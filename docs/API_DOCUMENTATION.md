@@ -244,6 +244,8 @@ The export describes the same moment as the EMS and FMS snapshots: `exportTimest
 | `notes` | Human-readable description of the tariff, including the hours it applies |
 | `validFrom` / `validTo` | Validity window of the tariff; `validTo: null` means it is still in force |
 
+The hours each category applies are given in that tariff's `notes`. Summary:
+
 | Category | Applies (JST) |
 |----------|---------------|
 | `peak` | Weekdays 13:00-16:00 |
