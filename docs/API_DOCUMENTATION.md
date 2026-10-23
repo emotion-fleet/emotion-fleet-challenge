@@ -270,7 +270,7 @@ The export describes the same moment as the EMS and FMS snapshots: `exportTimest
 | `offPeakTariffEnergyKwh` | kWh | Part of `totalEnergyKwh` consumed in `off_peak` hours |
 | `estimatedCostJpy` | JPY | Sum of each tariff band's energy multiplied by its `pricePerKwh`, rounded to the nearest yen |
 
-Values in `consumptionRecords` and `dailyAggregates` are rounded (power and energy to 0.1, interval energy to 0.001).
+Rounding: `consumptionRecords.powerKw` and every power and energy field in `dailyAggregates` to 0.1, `consumptionRecords.energyKwh` to 0.001, and `estimatedCostJpy` to the nearest yen.
 
 ---
 
