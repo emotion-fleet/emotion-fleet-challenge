@@ -180,9 +180,10 @@ The power provider supplies electricity consumption and tariff data. This data s
 
 The export describes the same moment as the EMS and FMS snapshots: `exportTimestamp` is `1775034000` (2026-04-01 09:00 UTC = 18:00 JST).
 
-- `consumptionRecords` are **utility-side meter readings** for the hour before the export: four 15-minute intervals per facility, 08:00-09:00 UTC (17:00-18:00 JST).
+- The facility's utility meter measures the **whole depot**: the chargers plus other equipment such as lighting and offices. The power and energy values in `consumptionRecords` and `dailyAggregates` come from that meter; `tariffs` and `facilityMappings` are contract data, and `estimatedCostJpy` is calculated from the tariffs.
+- `consumptionRecords` are the meter readings for the hour before the export: four 15-minute intervals per facility, 08:00-09:00 UTC (17:00-18:00 JST).
 - `timestampUnix` is the **start** of the interval. The interval covers `[timestampUnix, timestampUnix + periodMinutes * 60)`.
-- `powerKw` is the **average demand over the interval** (`energyKwh / (periodMinutes / 60)`). It is not an instantaneous value, so it can differ from the EMS `current_power_kw` reading taken at the snapshot.
+- `powerKw` is the **average demand over the interval** (`energyKwh / (periodMinutes / 60)`). It is not an instantaneous value. EMS `current_power_kw` is an instantaneous reading of the chargers only, taken at the snapshot.
 - `dailyAggregates` summarize each facility per **JST calendar day**. The export day (2026-04-01) is **day-to-date**: it covers 00:00-18:00 JST only.
 
 ### Data Structure
@@ -262,7 +263,7 @@ The export describes the same moment as the EMS and FMS snapshots: `exportTimest
 | Field | Unit | Description |
 |-------|------|-------------|
 | `date` | - | JST calendar day (`YYYY-MM-DD`). The export day is day-to-date (00:00-18:00 JST) |
-| `totalEnergyKwh` | kWh | Energy consumed during the day. Consumption that crosses midnight JST is split pro-rata between the two days |
+| `totalEnergyKwh` | kWh | Energy the meter measured for the whole depot during the day. Consumption that crosses midnight JST is split pro-rata between the two days |
 | `peakPowerKw` | kW | Highest 15-minute average demand during the day (not an instantaneous peak) |
 | `avgPowerKw` | kW | `totalEnergyKwh` divided by the hours covered (24, or 18 for the day-to-date export day) |
 | `peakTariffEnergyKwh` | kWh | Part of `totalEnergyKwh` consumed in `peak` hours |
