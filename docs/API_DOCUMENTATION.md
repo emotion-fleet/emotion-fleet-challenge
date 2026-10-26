@@ -176,19 +176,29 @@ The power provider supplies electricity consumption and tariff data. This data s
 | **Identifiers** | Numeric IDs and facility reference codes |
 | **Naming** | camelCase |
 
+### What The Data Represents
+
+The export describes the same moment as the EMS and FMS snapshots: `exportTimestamp` is `1775034000` (2026-04-01 09:00 UTC = 18:00 JST).
+
+- The facility's utility meter measures the **whole depot**: the chargers plus other equipment such as lighting and offices. The power and energy values in `consumptionRecords` and `dailyAggregates` come from that meter; `tariffs` and `facilityMappings` are contract data, and `estimatedCostJpy` is calculated from the tariffs.
+- `consumptionRecords` are the meter readings for the hour before the export: four 15-minute intervals per facility, 08:00-09:00 UTC (17:00-18:00 JST).
+- `timestampUnix` is the **start** of the interval. The interval covers `[timestampUnix, timestampUnix + periodMinutes * 60)`.
+- `powerKw` is the **average demand over the interval** (`energyKwh / (periodMinutes / 60)`). It is not an instantaneous value. EMS `current_power_kw` is an instantaneous reading of the chargers only, taken at the snapshot.
+- `dailyAggregates` summarize each facility per **JST calendar day**. The export day (2026-04-01) is **day-to-date**: it covers 00:00-18:00 JST only.
+
 ### Data Structure
 
 ```json
 {
   "version": "3.0",
-  "exportTimestamp": 1711962000,
+  "exportTimestamp": 1775034000,
   "consumptionRecords": [
     {
       "recordId": "number",
       "facilityCode": "string (DEPOT-XXX-X format)",
-      "timestampUnix": "number (Unix seconds)",
+      "timestampUnix": "number (Unix seconds, interval start)",
       "periodMinutes": "number",
-      "powerKw": "number",
+      "powerKw": "number (average demand over the interval)",
       "energyKwh": "number",
       "tariffCategory": "peak | standard | off_peak"
     }
@@ -199,18 +209,71 @@ The power provider supplies electricity consumption and tariff data. This data s
       "category": "peak | standard | off_peak",
       "pricePerKwh": "number (JPY)",
       "validFrom": "number (Unix timestamp)",
-      "validTo": "number (Unix timestamp) | null"
+      "validTo": "number (Unix timestamp) | null",
+      "notes": "string"
     }
   ],
   "facilityMappings": [
     {
       "facilityCode": "string",
       "contractId": "string",
-      "maxContractedPowerKw": "number"
+      "maxContractedPowerKw": "number",
+      "meterNumber": "string"
+    }
+  ],
+  "dailyAggregates": [
+    {
+      "facilityCode": "string",
+      "date": "string (YYYY-MM-DD, JST calendar day)",
+      "totalEnergyKwh": "number",
+      "peakPowerKw": "number",
+      "avgPowerKw": "number",
+      "peakTariffEnergyKwh": "number",
+      "standardTariffEnergyKwh": "number",
+      "offPeakTariffEnergyKwh": "number",
+      "estimatedCostJpy": "number"
     }
   ]
 }
 ```
+
+### Tariffs
+
+| Field | Description |
+|-------|-------------|
+| `notes` | Human-readable description of the tariff, including the hours it applies |
+| `validFrom` / `validTo` | Validity window of the tariff; `validTo: null` means it is still in force |
+
+The hours each category applies are given in that tariff's `notes`. Summary:
+
+| Category | Applies (JST) |
+|----------|---------------|
+| `peak` | Weekdays 13:00-16:00 |
+| `standard` | Weekdays 08:00-13:00 and 16:00-22:00 |
+| `off_peak` | Weekdays 22:00-08:00, and all day on weekends |
+
+### Facility Mappings
+
+| Field | Description |
+|-------|-------------|
+| `contractId` | Supply contract identifier with the power provider |
+| `maxContractedPowerKw` | Maximum contracted demand for the facility (kW) |
+| `meterNumber` | Utility meter identifier for the facility |
+
+### Daily Aggregates
+
+| Field | Unit | Description |
+|-------|------|-------------|
+| `date` | - | JST calendar day (`YYYY-MM-DD`). The export day is day-to-date (00:00-18:00 JST) |
+| `totalEnergyKwh` | kWh | Energy the meter measured for the whole depot during the day. Consumption that crosses midnight JST is split pro-rata between the two days |
+| `peakPowerKw` | kW | Highest 15-minute average demand during the day (not an instantaneous peak) |
+| `avgPowerKw` | kW | `totalEnergyKwh` divided by the hours covered (24, or 18 for the day-to-date export day) |
+| `peakTariffEnergyKwh` | kWh | Part of `totalEnergyKwh` consumed in `peak` hours |
+| `standardTariffEnergyKwh` | kWh | Part of `totalEnergyKwh` consumed in `standard` hours |
+| `offPeakTariffEnergyKwh` | kWh | Part of `totalEnergyKwh` consumed in `off_peak` hours |
+| `estimatedCostJpy` | JPY | Sum of each tariff band's energy multiplied by its `pricePerKwh`, rounded to the nearest yen |
+
+Rounding: `consumptionRecords.powerKw` and every power and energy field in `dailyAggregates` to 0.1, `consumptionRecords.energyKwh` to 0.001, and `estimatedCostJpy` to the nearest yen.
 
 ---
 
